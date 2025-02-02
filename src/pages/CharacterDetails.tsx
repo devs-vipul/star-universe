@@ -77,7 +77,9 @@ const CharacterDetails: React.FC = () => {
   if (!character) {
     return (
       <div className="text-center py-12">
-        <p className="text-red-600 mb-4">Character not found</p>
+        <p className="text-white text-2xl font-semibold mb-4">
+          Character not found
+        </p>
         <button
           onClick={() => navigate("/")}
           className="text-text-muted hover:text-white flex items-center justify-center gap-2"
