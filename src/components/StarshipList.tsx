@@ -1,5 +1,6 @@
 import React from "react";
 import type { Starship } from "../types/api";
+import SkeletonLoader from "./SkeletonLoader";
 
 interface StarshipListProps {
   starships: Starship[];
@@ -10,9 +11,12 @@ const StarshipList: React.FC<StarshipListProps> = ({ starships, loading }) => {
   return (
     <div className="flex flex-col gap-6">
       <h2 className="text-xl font-semibold text-white">Starships</h2>
+
       {loading ? (
-        <div className="flex justify-center">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto custom-scrollbar max-h-[400px]">
+          {[...Array(4)].map((_, index) => (
+            <SkeletonLoader key={index} type="starships" />
+          ))}
         </div>
       ) : starships.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto custom-scrollbar max-h-[400px]">

@@ -1,7 +1,7 @@
 import React from "react";
 
 interface SkeletonLoaderProps {
-  type?: "characterCard";
+  type?: "characterCard" | "starships" | "films";
 }
 
 const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({ type }) => {
@@ -11,6 +11,25 @@ const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({ type }) => {
         <div className="h-6 bg-background-muted rounded w-3/4 mb-4"></div>
         <div className="h-4 bg-background-muted rounded w-1/2 mb-3"></div>
         <div className="h-4 bg-background-muted rounded w-2/3"></div>
+      </div>
+    );
+  }
+
+  if (type === "starships") {
+    return (
+      <div className="flex flex-col gap-2 bg-background-elevated px-6 py-4 rounded-lg shadow-md animate-pulse">
+        <div className="h-6 bg-background-muted rounded w-3/4 mb-2"></div>
+        <div className="h-4 bg-background-muted rounded w-1/2"></div>
+        <div className="h-4 bg-background-muted rounded w-2/3"></div>
+      </div>
+    );
+  }
+
+  if (type === "films") {
+    return (
+      <div className="pb-4 flex flex-col gap-2 border-b last:border-b-0 animate-pulse">
+        <div className="h-6 bg-background-muted rounded w-3/4 mb-2"></div>
+        <div className="h-4 bg-background-muted rounded w-1/2"></div>
       </div>
     );
   }

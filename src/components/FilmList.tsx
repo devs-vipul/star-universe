@@ -1,5 +1,6 @@
 import React from "react";
 import type { Film } from "../types/api";
+import SkeletonLoader from "./SkeletonLoader";
 
 interface FilmListProps {
   films: Film[];
@@ -12,8 +13,10 @@ const FilmList: React.FC<FilmListProps> = ({ films, loading }) => {
       <h2 className="text-xl font-semibold text-white">Films</h2>
 
       {loading ? (
-        <div className="flex justify-center">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+        <div className="grid grid-cols-1 gap-4 overflow-y-auto custom-scrollbar max-h-[400px]">
+          {[...Array(4)].map((_, index) => (
+            <SkeletonLoader key={index} type="films" />
+          ))}
         </div>
       ) : films.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 bg-background-elevated px-6 py-4 rounded-lg shadow-md overflow-y-auto custom-scrollbar max-h-[400px]">

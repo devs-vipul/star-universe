@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
   return (
     <aside
       className={cn(
-        "bg-background-elevated text-text-primary h-screen fixed left-0 top-0 transition-all",
+        "bg-background-elevated h-full text-text-primary fixed left-0 top-0 transition-all",
         isCollapsed ? "w-16" : "w-64"
       )}
     >
@@ -55,7 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
           )}
         </div>
 
-        <nav className="space-y-2">
+        <nav className="flex flex-col gap-2">
           <NavLink
             to="/"
             className={({ isActive }) =>
