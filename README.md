@@ -2,6 +2,8 @@
 
 Star Universe is a React-based web application that allows users to explore characters, films, and starships from the Star Wars universe. The application provides a user-friendly interface to view details about characters, manage favorites, and navigate through various sections seamlessly.
 
+Detailed Doc: https://docs.google.com/document/d/1Zf9NL6CrJOD8UNtvqqfw1PjJFSSnLRgLUj6f8vWDFTk/edit?usp=sharing
+
 ## Features
 
 - **Character List**: Browse through a list of characters with search functionality.
