@@ -60,7 +60,7 @@ To start the development server, run:
 npm run dev
 or
 yarn dev
-Open your browser and navigate to `http://localhost:3000` to view the application.
+Open your browser and navigate to `http://localhost:5173` or `http://localhost:<hosted_port>` to view the application.
 
 ### Building for Production
 
