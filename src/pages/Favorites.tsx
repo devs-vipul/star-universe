@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Trash2, Edit2 } from "lucide-react";
+import { Trash2, Edit2, Earth } from "lucide-react";
 import { useCharacterContext } from "../context/CharacterContext";
 import { Character } from "../types/api";
 
 const Favorites: React.FC = () => {
   const navigate = useNavigate();
-  const { favorites, removeFavorite, updateCharacter } = useCharacterContext();
+  const { favorites, planets, removeFavorite, updateCharacter } =
+    useCharacterContext();
   const [editingCharacter, setEditingCharacter] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<Character>>({});
 
@@ -44,7 +45,7 @@ const Favorites: React.FC = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-background-active">
-        Favorite Characters
+        Favourite Characters
       </h1>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -59,9 +60,15 @@ const Favorites: React.FC = () => {
             className="border-l-4 border-background-active cursor-pointer bg-background-elevated p-6 rounded-lg capitalize shadow-md"
           >
             <div className="flex justify-between items-start mb-4">
-              <h2 className="text-lg font-semibold mb-2 text-text-primary">
-                {character.name}
-              </h2>
+              <div className="flex flex-col items-start justify-start gap-1">
+                <h2 className="text-lg font-semibold text-text-primary">
+                  {character.name}
+                </h2>{" "}
+                <p className="text-text-muted flex items-center gap-2">
+                  <Earth size={14} />{" "}
+                  {planets[character.homeworld]?.name || "Loading..."}
+                </p>
+              </div>
               <div className="flex gap-2 items-center capitalize">
                 <button
                   onClick={(event) => handleEdit(character, event)}

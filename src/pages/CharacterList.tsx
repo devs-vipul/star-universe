@@ -68,6 +68,9 @@ const CharacterList: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      <h1 className="text-2xl font-bold text-background-active">
+        All Characters
+      </h1>
       <SearchBar value={search} onChange={handleSearch} />
 
       {characters.length === 0 ? (

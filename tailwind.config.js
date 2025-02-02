@@ -25,11 +25,11 @@ export default {
       keyframes: {
         zoom: {
           "0%": { transform: "scale(1)" },
-          "100%": { transform: "scale(1.1)" },
+          "100%": { transform: "scale(1.3)" },
         },
       },
       animation: {
-        zoom: "zoom 1s infinite alternate",
+        zoom: "zoom 0.5s infinite alternate",
       },
     },
   },
