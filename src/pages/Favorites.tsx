@@ -1,15 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash2, Edit2, Earth } from "lucide-react";
 import { useCharacterContext } from "../context/CharacterContext";
-import { Character } from "../types/api";
+import { Character, Planet } from "../types/api";
+import { useToast } from "../context/ToastContext";
+import { getPlanet } from "../lib/api";
 
 const Favorites: React.FC = () => {
   const navigate = useNavigate();
-  const { favorites, planets, removeFavorite, updateCharacter } =
+  const { showToast } = useToast();
+
+  const { favorites, planets, setPlanets, removeFavorite, updateCharacter } =
     useCharacterContext();
   const [editingCharacter, setEditingCharacter] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<Character>>({});
+  const [loadingPlanets, setLoadingPlanets] = useState(false);
+
+  // Fetch missing homeworlds if not in context
+  useEffect(() => {
+    const fetchMissingHomeworlds = async () => {
+      setLoadingPlanets(true);
+
+      const missingHomeworlds = [
+        ...new Set(
+          favorites
+            .map((char) => char.homeworld)
+            .filter((homeworld) => homeworld && !planets[homeworld])
+        ),
+      ];
+
+      if (missingHomeworlds.length > 0) {
+        try {
+          console.log("Fetching missing homeworlds:", missingHomeworlds);
+          const fetchedPlanets = await Promise.all(
+            missingHomeworlds.map((url) => getPlanet(url))
+          );
+
+          const newPlanets = fetchedPlanets.reduce((acc, planet) => {
+            acc[planet.url] = planet;
+            return acc;
+          }, {} as Record<string, Planet>);
+
+          setPlanets((prev: Record<string, Planet>) => ({
+            ...prev,
+            ...newPlanets,
+          }));
+        } catch (error) {
+          console.error("Error fetching missing homeworlds:", error);
+        }
+      }
+      setLoadingPlanets(false);
+    };
+
+    if (favorites.length > 0) {
+      fetchMissingHomeworlds();
+    }
+  }, [favorites, planets, setPlanets]);
 
   const handleEdit = (character: Character, event: React.MouseEvent) => {
     event.stopPropagation();
@@ -20,15 +66,17 @@ const Favorites: React.FC = () => {
     });
   };
 
-  const handleDelete = (url: string, event: React.MouseEvent) => {
+  const handleDelete = (url: string, name: string, event: React.MouseEvent) => {
     event.stopPropagation();
     removeFavorite(url);
+    showToast(`Removed ${name} from favourites`);
   };
 
   const handleSave = (url: string) => {
     updateCharacter(url, editForm);
     setEditingCharacter(null);
     setEditForm({});
+    showToast(`Details Updated!`);
   };
 
   if (favorites.length === 0) {
@@ -63,9 +111,9 @@ const Favorites: React.FC = () => {
               <div className="flex flex-col items-start justify-start gap-1">
                 <h2 className="text-lg font-semibold text-text-primary">
                   {character.name}
-                </h2>{" "}
+                </h2>
                 <p className="text-text-muted flex items-center gap-2">
-                  <Earth size={14} />{" "}
+                  <Earth size={14} />
                   {planets[character.homeworld]?.name || "Loading..."}
                 </p>
               </div>
@@ -77,7 +125,9 @@ const Favorites: React.FC = () => {
                   <Edit2 size={18} />
                 </button>
                 <button
-                  onClick={(event) => handleDelete(character.url, event)}
+                  onClick={(event) =>
+                    handleDelete(character.url, character.name, event)
+                  }
                   className="p-1 rounded hover:bg-gray-100 text-background-active"
                 >
                   <Trash2 size={18} />

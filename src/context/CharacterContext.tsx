@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import type { Character, Planet } from "../types/api";
 
 interface CharacterContextType {
@@ -23,18 +23,32 @@ export const CharacterProvider: React.FC<{ children: React.ReactNode }> = ({
   const [favorites, setFavorites] = useState<Character[]>([]);
   const [planets, setPlanets] = useState<Record<string, Planet>>({});
 
+  // Load favorites from local storage on app load
+  useEffect(() => {
+    const storedFavorites = JSON.parse(
+      localStorage.getItem("favorites") || "[]"
+    );
+    setFavorites(storedFavorites);
+  }, []);
+
   const addFavorite = (character: Character) => {
-    setFavorites((prev) => [...prev, character]);
+    const updatedFavorites = [...favorites, character];
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
   const removeFavorite = (url: string) => {
-    setFavorites((prev) => prev.filter((char) => char.url !== url));
+    const updatedFavorites = favorites.filter((char) => char.url !== url);
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
   const updateCharacter = (url: string, updates: Partial<Character>) => {
-    setFavorites((prev) =>
-      prev.map((char) => (char.url === url ? { ...char, ...updates } : char))
+    const updatedFavorites = favorites.map((char) =>
+      char.url === url ? { ...char, ...updates } : char
     );
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
   return (

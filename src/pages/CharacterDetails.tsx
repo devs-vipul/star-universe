@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Heart } from "lucide-react";
-import { getFilm, getStarship } from "../lib/api";
+import { getFilm, getStarship, getCharacter } from "../lib/api";
 import { useCharacterContext } from "../context/CharacterContext";
-import type { Film, Starship } from "../types/api";
+import type { Film, Starship, Character } from "../types/api";
 import StarshipList from "../components/StarshipList";
 import FilmList from "../components/FilmList";
 import { useToast } from "../context/ToastContext";
@@ -11,25 +11,25 @@ import { useToast } from "../context/ToastContext";
 const CharacterDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { characters, favorites, addFavorite, removeFavorite, planets } =
-    useCharacterContext();
+  const {
+    characters,
+    favorites,
+    addFavorite,
+    removeFavorite,
+    planets,
+    setCharacters,
+  } = useCharacterContext();
   const [films, setFilms] = useState<Film[]>([]);
   const [starships, setStarships] = useState<Starship[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { showToast } = useToast();
 
-  const character = characters.find((char) =>
-    char.url.includes(`/people/${id}/`)
-  );
+  const [character, setCharacter] = useState<Character | null>(null);
+
   const isFavorite = favorites.some((f) => f.url === character?.url);
 
-  const fetchRelatedData = useCallback(async () => {
-    if (!character) {
-      navigate("/");
-      return;
-    }
-
+  const fetchRelatedData = useCallback(async (character: Character) => {
     setLoading(true);
     setError(null);
     try {
@@ -46,11 +46,33 @@ const CharacterDetails: React.FC = () => {
       );
     }
     setLoading(false);
-  }, [character, navigate]);
+  }, []);
 
   useEffect(() => {
-    fetchRelatedData();
-  }, [fetchRelatedData]);
+    const fetchCharacter = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        let char = characters.find((char) =>
+          char.url.includes(`/people/${id}/`)
+        );
+
+        if (!char) {
+          char = await getCharacter(id!);
+          setCharacters([...characters, char]);
+        }
+
+        setCharacter(char);
+        await fetchRelatedData(char);
+      } catch (err) {
+        console.error("Error fetching character:", err);
+        setError("Failed to load character details. Please try again later.");
+      }
+      setLoading(false);
+    };
+
+    fetchCharacter();
+  }, [id, characters, setCharacters, fetchRelatedData]);
 
   if (!character) {
     return (
