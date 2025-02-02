@@ -29,7 +29,7 @@ const CharacterDetails: React.FC = () => {
 
   const isFavorite = favorites.some((f) => f.url === character?.url);
 
-  const fetchRelatedData = useCallback(async (character: Character) => {
+  const fetchRelatedData = async (character: Character) => {
     setLoading(true);
     setError(null);
     try {
@@ -46,33 +46,31 @@ const CharacterDetails: React.FC = () => {
       );
     }
     setLoading(false);
-  }, []);
+  };
+
+  const fetchCharacter = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      let char = characters.find((char) => char.url.includes(`/people/${id}/`));
+
+      if (!char) {
+        char = await getCharacter(id!);
+        setCharacters([...characters, char]);
+      }
+
+      setCharacter(char);
+      await fetchRelatedData(char);
+    } catch (err) {
+      console.error("Error fetching character:", err);
+      setError("Failed to load character details. Please try again later.");
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const fetchCharacter = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        let char = characters.find((char) =>
-          char.url.includes(`/people/${id}/`)
-        );
-
-        if (!char) {
-          char = await getCharacter(id!);
-          setCharacters([...characters, char]);
-        }
-
-        setCharacter(char);
-        await fetchRelatedData(char);
-      } catch (err) {
-        console.error("Error fetching character:", err);
-        setError("Failed to load character details. Please try again later.");
-      }
-      setLoading(false);
-    };
-
     fetchCharacter();
-  }, [id, characters, setCharacters, fetchRelatedData]);
+  }, [id, setCharacters]);
 
   if (!character) {
     return (

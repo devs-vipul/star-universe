@@ -24,12 +24,8 @@ export const getCharacters = (page = 1, search = "") => {
   return api.get<never, ApiResponse<Character>>(`/people?${params.toString()}`);
 };
 
-export const getCharacter = async (id: string): Promise<Character> => {
-  const response = await fetch(`https://swapi.dev/api/people/${id}/`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch character");
-  }
-  return response.json();
+export const getCharacter = (id: string) => {
+  return api.get<never, Character>(`/people/${id}/`);
 };
 
 export const getPlanet = (url: string) => {
