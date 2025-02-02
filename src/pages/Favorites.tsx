@@ -114,7 +114,9 @@ const Favorites: React.FC = () => {
                 </h2>
                 <p className="text-text-muted flex items-center gap-2">
                   <Earth size={14} />
-                  {planets[character.homeworld]?.name || "Loading..."}
+                  {loadingPlanets
+                    ? "Loading..."
+                    : planets[character.homeworld]?.name}
                 </p>
               </div>
               <div className="flex gap-2 items-center capitalize">
