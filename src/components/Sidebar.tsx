@@ -48,12 +48,21 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
             <PanelLeftOpen size={24} />
           )}
         </button>
-        <div className="px-4 pt-8 flex items-center justify-start gap-2">
+        {/* <div className="px-4 pt-8 flex items-center justify-start gap-2">
           <Atom size={28} className="animate-zoom text-background-active" />
           {!isCollapsed && (
             <span className="text-2xl font-bold">Star Universe</span>
           )}
-        </div>
+        </div> */}
+        <NavLink
+          to="/"
+          className="px-4 pt-8 flex items-center justify-start gap-2"
+        >
+          <Atom size={28} className="animate-zoom text-background-active" />
+          {!isCollapsed && (
+            <span className="text-2xl font-bold">Star Universe</span>
+          )}
+        </NavLink>
 
         <nav className="flex flex-col gap-2">
           <NavLink

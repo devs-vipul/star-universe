@@ -130,7 +130,7 @@ const CharacterDetails: React.FC = () => {
       </div>
 
       <div className="capitalize">
-        <div className="grid grid-cols-3 gap-4 bg-background-elevated p-6 rounded-lg shadow-md">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 bg-background-elevated p-6 rounded-lg shadow-md">
           <p className="text-text-muted">
             <span className="font-medium text-white">Hair Color:</span>{" "}
             {character.hair_color}
