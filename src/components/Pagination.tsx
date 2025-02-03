@@ -41,19 +41,31 @@ const Pagination: React.FC<PaginationProps> = ({
         <ChevronLeft size={20} />
       </button>
 
-      {getPageNumbers().map((page) => (
-        <button
-          key={page}
-          onClick={() => onPageChange(page)}
-          className={`border px-4 py-2 rounded-lg font-semibold text-sm ${
-            currentPage === page
-              ? "border-background-active bg-background-active text-text-primary"
-              : "border-text-muted text-text-muted hover:bg-gray-100 hover:text-black"
-          }`}
-        >
-          {page}
-        </button>
-      ))}
+      <button
+        className={`border px-4 py-2 rounded-lg font-semibold text-sm sm:hidden ${
+          currentPage === currentPage
+            ? "border-background-active bg-background-active text-text-primary"
+            : "border-text-muted text-text-muted hover:bg-gray-100 hover:text-black"
+        }`}
+      >
+        {currentPage}
+      </button>
+
+      <div className="hidden sm:flex space-x-2">
+        {getPageNumbers().map((page) => (
+          <button
+            key={page}
+            onClick={() => onPageChange(page)}
+            className={`border px-4 py-2 rounded-lg font-semibold text-sm ${
+              currentPage === page
+                ? "border-background-active bg-background-active text-text-primary"
+                : "border-text-muted text-text-muted hover:bg-gray-100 hover:text-black"
+            }`}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
 
       <button
         onClick={() => onPageChange(currentPage + 1)}
