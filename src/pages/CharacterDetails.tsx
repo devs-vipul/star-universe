@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Heart } from "lucide-react";
 import { getFilm, getStarship, getCharacter } from "../lib/api";
 import { useCharacterContext } from "../context/CharacterContext";
-import type { Film, Starship, Character } from "../types/api";
+import type { Film, Starship, Character } from "../types";
 import StarshipList from "../components/StarshipList";
 import FilmList from "../components/FilmList";
 import { useToast } from "../context/ToastContext";

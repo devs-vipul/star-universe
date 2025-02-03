@@ -3,7 +3,7 @@ import { getCharacters, getPlanet } from "../lib/api";
 import SearchBar from "../components/SearchBar";
 import Pagination from "../components/Pagination";
 import { useCharacterContext } from "../context/CharacterContext";
-import { Planet } from "../types/api";
+import { Planet } from "../types";
 import CharacterCard from "../components/CharacterCard";
 import SkeletonLoader from "../components/SkeletonLoader";
 

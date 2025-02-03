@@ -1,5 +1,5 @@
 import React from "react";
-import type { Film } from "../types/api";
+import type { Film } from "../types";
 import SkeletonLoader from "./SkeletonLoader";
 
 interface FilmListProps {

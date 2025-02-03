@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Character } from "../types/api";
+import { Character } from "../types";
 import { useCharacterContext } from "../context/CharacterContext";
 import { Earth, Heart } from "lucide-react";
 import { useToast } from "../context/ToastContext";

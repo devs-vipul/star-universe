@@ -1,5 +1,5 @@
 import React from "react";
-import type { Starship } from "../types/api";
+import type { Starship } from "../types";
 import SkeletonLoader from "./SkeletonLoader";
 
 interface StarshipListProps {

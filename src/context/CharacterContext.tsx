@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import type { Character, Planet } from "../types/api";
+import type { Character, Planet } from "../types";
 
 interface CharacterContextType {
   characters: Character[];

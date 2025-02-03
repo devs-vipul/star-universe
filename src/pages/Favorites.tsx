@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash2, Edit2, Earth } from "lucide-react";
 import { useCharacterContext } from "../context/CharacterContext";
-import { Character, Planet } from "../types/api";
+import { Character, Planet } from "../types";
 import { useToast } from "../context/ToastContext";
 import { getPlanet } from "../lib/api";
 

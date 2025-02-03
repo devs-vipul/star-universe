@@ -1,11 +1,5 @@
 import axios from "axios";
-import type {
-  ApiResponse,
-  Character,
-  Film,
-  Planet,
-  Starship,
-} from "../types/api";
+import type { ApiResponse, Character, Film, Planet, Starship } from "../types";
 
 const api = axios.create({
   baseURL: "https://swapi.dev/api",
