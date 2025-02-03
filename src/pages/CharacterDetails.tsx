@@ -89,7 +89,8 @@ const CharacterDetails: React.FC = () => {
     );
   }
 
-  const toggleFavorite = () => {
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (isFavorite) {
       removeFavorite(character.url);
       showToast(`Removed ${character.name} from favourites`);

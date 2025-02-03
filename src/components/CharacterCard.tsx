@@ -76,4 +76,4 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
   );
 };
 
-export default CharacterCard;
+export default React.memo(CharacterCard);

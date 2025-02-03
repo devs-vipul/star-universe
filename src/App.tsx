@@ -1,12 +1,12 @@
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import CharacterList from "./pages/CharacterList";
 import CharacterDetails from "./pages/CharacterDetails";
-import Favorites from "./pages/Favorites";
 import { CharacterProvider } from "./context/CharacterContext";
 import Toast from "./components/Toast";
 import { cn } from "./lib/utils";
+import Favorites from "./pages/Favorites";
 
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(false);
