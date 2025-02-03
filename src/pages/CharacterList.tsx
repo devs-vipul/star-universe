@@ -73,7 +73,7 @@ const CharacterList: React.FC = () => {
       </h1>
       <SearchBar value={search} onChange={handleSearch} />
 
-      {characters.length === 0 ? (
+      {characters && characters.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-text-muted">No characters found</p>
         </div>
