@@ -48,7 +48,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
   return (
     <div
       onClick={handleClick}
-      className="flex flex-col gap-6 bg-background-elevated capitalize p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer"
+      className="character-card flex flex-col gap-6 bg-background-elevated capitalize p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer"
     >
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-text-primary">

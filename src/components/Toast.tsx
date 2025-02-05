@@ -17,7 +17,7 @@ const Toast: React.FC = () => {
   if (!isToastVisible) return null;
 
   return (
-    <div className="flex items-center gap-4 fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-background-active text-white font-medium px-4 py-2 rounded-lg shadow-lg animate-slide-up">
+    <div className="toast flex items-center gap-4 fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-background-active text-white font-medium px-4 py-2 rounded-lg shadow-lg animate-slide-up">
       {toastMessage}
       <X
         className="cursor-pointer"

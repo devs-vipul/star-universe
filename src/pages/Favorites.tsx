@@ -91,7 +91,7 @@ const Favorites: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="favorite-card space-y-6">
       <h1 className="text-2xl font-bold text-background-active">
         Favourite Characters
       </h1>
@@ -122,12 +122,14 @@ const Favorites: React.FC = () => {
                 </div>
                 <div className="flex gap-2 items-center capitalize">
                   <button
+                    data-testid="edit"
                     onClick={(event) => handleEdit(character, event)}
                     className="p-1 rounded text-text-muted hover:bg-gray-100 hover:text-black"
                   >
                     <Edit2 size={18} />
                   </button>
                   <button
+                    data-testid="remove"
                     onClick={(event) =>
                       handleDelete(character.url, character.name, event)
                     }
